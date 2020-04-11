@@ -9,7 +9,7 @@ class Brand
 
     private $value;
 
-    private $brands = array(
+    private $options = array(
         "Nokian",
         "BFGoodrich",
         "Pirelli",
@@ -21,7 +21,7 @@ class Brand
 
     public function __construct(string $value)
     {
-        if (!in_array($value, $this->brands)) {
+        if (!in_array($value, $this->options)) {
             $this->value = null;
         } else {
             $this->value = $value;

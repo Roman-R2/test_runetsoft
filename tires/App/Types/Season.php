@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace Types;
 
-class RunFlat
+class Season
 {
 
     private $value;
 
     private $options = array(
-        "RunFlat",
-        "Run Flat",
-        "ROF",
-        "ZP",
-        "SSR",
-        "ZPS",
-        "HRS",
-        "RFT"
+        "Зимние (шипованные)",
+        "Внедорожные",
+        "Летние",
+        "Зимние (нешипованные)",
+        "Всесезонные"
     );
 
     public function __construct(string $value)
@@ -37,4 +34,5 @@ class RunFlat
     public function getOptions(){
         return $this->options;
     }
+
 }

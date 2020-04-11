@@ -9,15 +9,15 @@ class TireBox
 
     private $value;
 
-    private $brands = array(
+    private $options = array(
+        "TL/TT",
         "ТТ",
-        "TL",
-        "TL/TT"
+        "TL"
     );
 
     public function __construct(string $value)
     {
-        if (!in_array($value, $this->brands)) {
+        if (!in_array($value, $this->options)) {
             $this->value = null;
         } else {
             $this->value = $value;
@@ -27,6 +27,10 @@ class TireBox
     public function getValue(): ?string
     {
         return $this->value;
+    }
+
+    public function getOptions(){
+        return $this->options;
     }
 
 }

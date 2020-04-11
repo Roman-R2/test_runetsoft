@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Classes;
@@ -7,19 +8,21 @@ class Connect
 {
     private static $dbh;
 
-    public function __construct(){
-
+    public function __construct()
+    {
         $params = parse_ini_file('../database.ini');
         if ($params === false) {
             new \Exception("Error reading database configuration file");
         }
 
-        $conStr = sprintf("pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
-                          $params['host'],
-                          $params['port'],
-                          $params['database'],
-                          $params['user'],
-                          $params['password']);
+        $conStr = sprintf(
+            "pgsql:host=%s;port=%d;dbname=%s;user=%s;password=%s",
+            $params['host'],
+            $params['port'],
+            $params['database'],
+            $params['user'],
+            $params['password']
+        );
 
         try {
             if (is_null(self::$dbh)) {
@@ -27,16 +30,17 @@ class Connect
                 self::$dbh->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             }
             return self::$dbh;
-
         } catch (\PDOException $e) {
             echo $e->getMessage();
         }
     }
 
-    final private function __clone(){}
+    final private function __clone()
+    {
+    }
 
 
-    public function query($queryString)
+    public function selectQuery($queryString)
     {
         try {
             $st = self::$dbh->query($queryString, \PDO::FETCH_OBJ);
@@ -46,6 +50,19 @@ class Connect
         (\PDOException $e) {
             print "Error!: " . $e->getMessage() . "<br/>";
             die();
+        }
+    }
+
+    public function insertQuery(string $queryString, array $data)
+    {
+        $stmt = self::$dbh->prepare($queryString);
+        try {
+            self::$dbh->beginTransaction();
+                $stmt->execute($data);
+            self::$dbh->commit();
+        } catch (\Exception $e) {
+            self::$dbh->rollback();
+            print "Error!: " . $e->getMessage() . "<br/>";
         }
     }
 

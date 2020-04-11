@@ -14,7 +14,7 @@ class getFieldsFromTable
     }
 
     public function allFields() {
-        return (new Connect())->query('SELECT * FROM '.$this->tableName);
+        return (new Connect())->selectQuery('SELECT * FROM '.$this->tableName);
     }
 
 

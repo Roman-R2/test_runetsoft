@@ -97,14 +97,8 @@ class Parser
             }
 
             if (!$this->abbreviation = $this->getAbbreviation($setOfCharacters['rest_of_line'])) {
-                echo $this->abbreviation.'<br>';
-                //$this->tireBox = null;
+                $this->abbreviation = null;
             }
-
-
-            //echo $setOfCharacters['rest_of_line'] . '<br>';
-
-
             $this->authorizedData[$tire->id] = array(
                 'brand' => $this->brand,
                 'model' => $this->model,
@@ -180,13 +174,7 @@ class Parser
         $withoutFindString = str_replace($this->tireBox, "", $unbrokenString);
         $withoutFindString = str_replace($this->runFlatTire, "", $withoutFindString);
         $withoutFindString = str_replace($this->season, "", $withoutFindString);
-//        $withoutFindString = str_replace(" ", "", $withoutFindString);
-
-        /*if (mb_strlen($withoutFindString,'UTF-8') == 0)
-        {
-            return null;
-        }*/
-
+        $withoutFindString = str_replace(" ", "", $withoutFindString);
         return $withoutFindString;
     }
 

@@ -16,6 +16,8 @@ class PutFieldToTable
 
     public function putFields(array $data)
     {
+
+
         $queryString = 'INSERT INTO 
                             ' . $this->tableName . ' 
                             (
@@ -61,7 +63,7 @@ class PutFieldToTable
                 $preparedArray[] =  $characteristics['diameter'];
                 $preparedArray[] =  $characteristics['load_index'];
                 $preparedArray[] =  $characteristics['speed_index'];
-                $preparedArray[] =  $characteristics['abbreviations'];
+                $preparedArray[] =  $characteristics['abbreviation'];
                 $preparedArray[] =  $characteristics['runFlatTire'];
                 $preparedArray[] =  $characteristics['tireBox'];
                 $preparedArray[] =  $characteristics['season'];

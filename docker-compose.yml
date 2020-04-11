@@ -1,78 +1,48 @@
 version: '3'
 services:
-  trade-nginx:
-    container_name: trade-nginx
+  tires-nginx:
+    container_name: tires-nginx
     build:
-      context: ./trade/docker/development
+      context: ./tires/docker/development
       dockerfile: nginx.docker
     volumes:
-      - ./trade:/app
+      - ./tires:/App
     depends_on:
-      - trade-php-fpm
+      - tires-php-fpm
     ports:
       - "8080:80"   # http
   
-  trade-php-fpm:
-    container_name: trade-php-fpm
+  tires-php-fpm:
+    container_name: tires-php-fpm
     build:
-      context: ./trade/docker/development
+      context: ./tires/docker/development
       dockerfile: php-fpm.docker
     volumes:
-      - ./trade:/app
+      - ./tires:/App
     depends_on:
-      - trade-postgres
+      - tires-postgres
   
-  trade-php-cli:
-    container_name: trade-php-cli
+  tires-php-cli:
+    container_name: tires-php-cli
     build:
-      context: ./trade/docker/development
+      context: ./tires/docker/development
       dockerfile: php-cli.docker
     volumes:
-      - ./trade:/app
-      - composer:/root/.composer/cache
+      - ./tires:/App
     depends_on:
-      - trade-postgres
+      - tires-postgres
   
-  trade-postgres:
-    container_name: trade-postgres
+  tires-postgres:
+    container_name: tires-postgres
     image: postgres:11.2-alpine
     volumes:
-      - trade-postgres:/var/lib/postgresql/data
+      - tires-postgres:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: app
+      POSTGRES_USER: App
       POSTGRES_PASSWORD: secret
-      POSTGRES_DB: app
+      POSTGRES_DB: App
     ports:
       - "54321:5432"
 
-  trade-redis:
-    image: redis:3.0-alpine
-    volumes:
-      - trade-redis2:/data
-    command:
-      - 'redis-server'
-      - '--requirepass secret'
-
-  trade-node-watch:
-    image: node:12.7-alpine
-    volumes:
-      - ./trade:/app
-    working_dir: /app
-    command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && npm run watch"
-  
-  trade-node:
-    image: node:12.7-alpine
-    volumes:
-      - ./trade:/app
-    working_dir: /app
-
-  mailer:
-    container_name: mailer
-    image: mailhog/mailhog
-    ports:
-      - "8081:8025"
-      
 volumes:
-  trade-postgres:
-  trade-redis2:
-  composer:
+  tires-postgres:
